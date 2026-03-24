@@ -1,24 +1,25 @@
 # Proof of Concept - Split-the-Bill for Roommates
 
-## Idea Reference
-- Number: 63
-- Title: Split-the-Bill for Roommates
-- Description: Tracks shared expenses and calculates "who owes who" monthly.
+## Scope
+- App category: Social & Community
+- Entity model: Split Bill Community Event
+- Deployable stack: Flask + SQLAlchemy + Gunicorn + Docker + CI
 
-## PoC Scope
-- App boots with Flask + SQLite persistence
-- CRUD flow works via web UI (`/`, `/items/new`, `/items/<id>/edit`)
-- API endpoints return valid JSON (`/api/health`, `/api/items`)
-- Deployability assets included (`Dockerfile`, `docker-compose.yml`, `Procfile`)
+## Dynamic Field Configuration
+- Host: `host` (text)
+- Expected Attendees: `attendees` (number)
+- Community Notes: `community_notes` (textarea)
 
-## Run Evidence (to capture)
+## Run Evidence Commands
 ```bash
 python app.py
 curl http://localhost:5000/api/health
-curl -X POST http://localhost:5000/api/items -H "Content-Type: application/json" -d '{"title": "Demo item", "details": "Created from PoC command", "status": "active"}'
-curl http://localhost:5000/api/items
+curl http://localhost:5000/api/schema
+curl -X POST http://localhost:5000/api/records   -H "Content-Type: application/json"   -d '{"title":"Demo Record","status":"open","payload":{"host":"Demo value","attendees":12,"community_notes":"seed note"}}'
+curl http://localhost:5000/api/metrics
 ```
 
 ## Metadata
-- Generated UTC: 2026-03-24T15:35:11.692992+00:00
-- Status: Deployable full-template scaffold complete
+- Idea number: 84
+- Generated UTC: 2026-03-24T15:52:22.422985+00:00
+- Status: Phase-2 complete
